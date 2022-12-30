@@ -6,14 +6,29 @@ public class Member {
 	private String memberId;
 	private String memberPwd;
 	private String memberName;
-	private String memberAge;
+	private int memberAge;
 	private String memberGender;
 	private String memberEmail;
 	private String memberPhone;
 	private String memberAddress;
 	private String memberHobby;
 	private Timestamp memberDate;
-
+	
+	public Member() {}
+	public Member(String memberId, String memberPwd, String memberName, int memberAge, String memberGender,
+			String memberEmail, String memberPhone, String memberAddress, String memberHobby) {
+		super();
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.memberName = memberName;
+		this.memberAge = memberAge;
+		this.memberGender = memberGender;
+		this.memberEmail = memberEmail;
+		this.memberPhone = memberPhone;
+		this.memberAddress = memberAddress;
+		this.memberHobby = memberHobby;
+	}
+	
 	public String getMemberId() {
 		return memberId;
 	}
@@ -32,10 +47,10 @@ public class Member {
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
-	public String getMemberAge() {
+	public int getMemberAge() {
 		return memberAge;
 	}
-	public void setMemberAge(String memberAge) {
+	public void setMemberAge(int memberAge) {
 		this.memberAge = memberAge;
 	}
 	public String getMemberGender() {
@@ -81,6 +96,6 @@ public class Member {
 				+ ", memberPhone=" + memberPhone + ", memberAddress=" + memberAddress + ", memberHobby=" + memberHobby
 				+ ", memberDate=" + memberDate + "]";
 	}
-
-
+	
+	
 }
