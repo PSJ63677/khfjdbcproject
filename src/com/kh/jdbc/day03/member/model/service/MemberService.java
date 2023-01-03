@@ -9,55 +9,71 @@ import com.kh.jdbc.day03.member.model.vo.Member;
 
 public class MemberService {
 	
-	private JDBCTemplate jdbcTemplate;
+//	private JDBCTemplate jdbcTemplate;
 	private MemberDAO mDao;
 	
 	public MemberService() {
-		jdbcTemplate = JDBCTemplate.getDriverLoad();
-		mDao = new MemberDAO();
+//		jdbcTemplate = JDBCTemplate.getDriverLoad();
+		mDao = new MemberDAO();		// 생략하지 말기
 	}
 	
 	public List<Member> selectAll() {
-		List<Member> mList = null;
 //		MemberDAO mDao = new MemberDAO();
 //		JDBCTemplate jdbcTemplate = new JDBCTemplate();
 //		JDBCTemplate jdbcTemplate = JDBCTemplate.getDriverLoad();
-		Connection conn = jdbcTemplate.getConnection();
-		mList = mDao.selectAll(conn);
-		jdbcTemplate.close(conn);
+		Connection conn = JDBCTemplate.getConnection();
+		List<Member> mList = mDao.selectAll(conn);
+//		jdbcTemplate.close(conn);
 		return mList;
 	}
 	
 	public Member selectOneById(String memberId) {
-		Connection conn = jdbcTemplate.getConnection();
+		Connection conn = JDBCTemplate.getConnection();
 		Member member = mDao.selectOneById(conn, memberId);
-		jdbcTemplate.close(conn);
+//		jdbcTemplate.close(conn);
 		return member;
 	}
+	
+	public List<Member> selectAllByName(String memberName) {
+		Connection conn = JDBCTemplate.getConnection();
+		List<Member> mList = mDao.selectAllByName(conn, memberName);
+		return mList;
+	}
 
-	public int InsertMember(Member member) {
+	public int insertMember(Member member) {
 //		MemberDAO mDao = new MemberDAO();
 //		JDBCTemplate jdbcTemplate = JDBCTemplate.getDriverLoad();
-		Connection conn = jdbcTemplate.getConnection();
+		Connection conn = JDBCTemplate.getConnection();
 		int result = mDao.insertMember(conn, member);
 		if(result > 0) {
-			jdbcTemplate.commit(conn);
+			JDBCTemplate.commit(conn);
 		} else {
-			jdbcTemplate.rollback(conn);
+			JDBCTemplate.rollback(conn);
 		}
-		jdbcTemplate.close(conn);
+//		jdbcTemplate.close(conn);
 		return result;
 	}
 	
 	public int updateMember(Member member) {
-		Connection conn = jdbcTemplate.getConnection();
+		Connection conn = JDBCTemplate.getConnection();
 		int result = mDao.updateMember(conn, member);
 		if(result > 0) {
-			jdbcTemplate.commit(conn);
+			JDBCTemplate.commit(conn);
 		} else {
-			jdbcTemplate.rollback(conn);
+			JDBCTemplate.rollback(conn);
 		}
-		jdbcTemplate.close(conn);
+//		jdbcTemplate.close(conn);
+		return result;
+	}
+	
+	public int deleteMember(String memberId) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = mDao.deleteMember(conn, memberId);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
 		return result;
 	}
 }

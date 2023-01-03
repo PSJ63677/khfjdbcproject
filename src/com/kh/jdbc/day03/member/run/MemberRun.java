@@ -14,6 +14,7 @@ public class MemberRun {
 		Member member = null;
 		int result = 0;
 		String memberId = "";
+		String memberName = "";
  		gone :
 		while(true) {
 			int choice = mView.mainMenu();
@@ -27,8 +28,24 @@ public class MemberRun {
 					mView.displayError("회원 정보가 없습니다.");
 				}
 				break;
-			case 2 : break;
-			case 3 : break;
+			case 2 : 
+				memberId = mView.inputMemberId("검색");
+				member = mCon.printOneById(memberId);
+				if(member != null) {
+					mView.showOne(member);
+				} else {
+					mView.displayError("일치하는 회원이 존재하지 않습니다.");
+				}
+					break;
+			case 3 : 
+				memberName = mView.inputMemberName("검색");
+				mList = mCon.printAllByName(memberName);
+				if(!mList.isEmpty()) {
+					mView.showAll(mList);
+				} else {
+					mView.displayError("일치하는 회원이 존재하지 않습니다.");
+				}
+				break;
 			case 4 : 
 				member = mView.inputMember();
 				result = mCon.registerMember(member);
@@ -53,7 +70,15 @@ public class MemberRun {
 					mView.displayError("존재하지 않는 회원입니다.");
 				}
 				break;
-			case 6 : break;
+			case 6 : 
+				memberId = mView.inputMemberId("삭제");
+				result = mCon.removeMember(memberId);
+				if(result > 0) {
+					mView.displaySuccess("탈퇴 성공");
+				} else { 
+					mView.displayError("탈퇴 실패");
+				}
+				break;
 			}
 		}
 	}
